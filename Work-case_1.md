@@ -1,5 +1,5 @@
-# Звіт з Work-case 1
-## **Дисципліна:** 
+# Work-case 1
+## **Discipline:** 
 Операційні системи
 
 ## Student:
@@ -19,3 +19,24 @@ If it weren't for Git, teamwork would turn into a chaos of sending files back an
 
 ### **Data Security**
 Finally, Git ensures Data Security because it stores the whole project history locally, creating copies on every team member's disk, not just on one server. So, if the main server breaks or the internet goes down, you won't lose your progress because you have your own complete copy of all the data.
+
+## Main commands
+
+`git config --global user.name "Name"` — sets the username.
+`git config --global user.email "email"` — sets the email address.
+`git init` — used for a new project. It creates a hidden .git folder, and from this moment, Git starts tracking changes in this folder.
+`git clone <URL>` — used to download an existing project (for example, from GitHub) to your computer.
+`git status` — the most important command. It shows the current state: which files are changed, which are new, and which are ready to be saved (are in the Staging Area).
+`git add <file>` — adds a specific file to the list ready for saving.
+`git add .` — adds all modified files at once. This moves changes to the Staging Area.
+`git commit -m "Description"` — takes a "snapshot" of the project and saves it to history forever. The -m parameter is mandatory to add a comment and avoid using a complex text editor.
+`git log` — shows a list of all saves (who, when, and what they did).
+`git branch` — shows a list of all existing branches.
+`git branch <name>` — creates a new branch.
+`git checkout <name>` — switches you to another branch (allows you to "jump" between versions).
+`git checkout -b <name>` — a combined action: creates a branch and switches to it immediately.
+`git merge <name>` — combines changes from the specified branch into the one you are currently in.
+`git push` — sends your local commits to the server (GitHub).
+`git pull` — pulls the latest changes from the server to your computer (this combines the fetch and merge commands).
+Pull Request (PR) — this is not a terminal command, but a process on the GitHub website where you propose your changes for review before merging them with the main code.
+`.gitignore` — this is a special file where you write the names of files or folders that should not be in the repository (for example, passwords, system files, temporary files).
