@@ -1,8 +1,9 @@
 # Звіт з Work-case 1
-**Дисципліна:** Операційні системи
+# **Дисципліна:** 
+Операційні системи
 
-## Team:
-1. Андрій Тихий
+## Student:
+Андрій Тихий РПЗ-33
 
 ## What is Git?
 Git is a distributed version control system that has become the standard in modern software development. However, its role is much wider than just "saving files" because it is a versatile tool that has four key functions: Version Control, a Communication System between developers, the Foundation of Teamwork, and Data Security.
