@@ -72,18 +72,21 @@ If Linux is installed without graphics (for example, Ubuntu Server), you can ins
     sudo apt update
     sudo apt upgrade
     ```
+  <br><br>
 2.  **To install Gnome (standard for Ubuntu):**
     ```bash
     sudo apt install ubuntu-desktop
     # or the minimal version:
     sudo apt install ubuntu-gnome-desktop
     ```
+    <br><br>
 3.  **To install KDE (Kubuntu):**
     ```bash
     sudo apt install kubuntu-desktop
     # or the standard KDE Plasma version:
     sudo apt install kde-plasma-desktop
     ```
+    <br><br>
 *You can also use the `tasksel` utility (command `sudo tasksel`), where you can check the required environments.*
 
 ### 2.5. Characteristics of graphical interfaces (Variant 23: Gnome and JWM)
