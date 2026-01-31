@@ -1,153 +1,166 @@
-# Лабораторна робота №1
-**Виконав студент групи РПЗ-33 Тихий Андрій**
-## **Тема:** 
-Знайомство з робочим середовищем віртуальних машин та особливостями операційної системи Linux
-## **Мета роботи:**
-1. Знайомство з гіпервізорами різного типу, віртуалізацією при роботі з операційними системами.
-2. Знайомство з основними видами сучасних ОС, короткий огляд їх можливостей.
-## 1. Завдання для попередньої підготовки
-### 1.1. Словник базових англійських термінів
-- **Virtual Machine (VM)** - Програмна емуляція фізичного комп'ютера, яка виконує програми як справжня машина.<br>
-- **Hypervisor** - Програмне забезпечення, яке створює та запускає віртуальні машини.<br>
-- **Host OS** - Операційна система фізичного комп'ютера, на якій працює гіпервізор (типу 2).<br>
-- **Guest OS** - Операційна система, яка встановлена всередині віртуальної машини.<br>
-- **Kernel** - Ядро операційної системи, центральний контролер усього, що відбувається на комп'ютері.<br>
-- **Distribution (Distro)** - Набір, що включає ядро Linux, системні утиліти GNU та прикладне ПЗ.<br>
-- **CLI (Command Line Interface)** - Текстовий інтерфейс, де користувач вводить команди з клавіатури.<br>
-- **Open Source** - ПЗ з відкритим вихідним кодом, який можна вільно переглядати та змінювати. <br>
-### 1.2. Характеристика гіпервізорів. Їх типи. Основні компоненти та можливості XEN гіпервізорів.
-- **Гіпервізор** — це програмне забезпечення, яке дозволяє запускати декілька ОС на одному фізичному комп'ютері одночасно<br>
+# Laboratory Work No. 1
+**Performed by student of group RPZ-33 Andrii Tykhyi**
+## **Topic:** 
+Introduction to the virtual machine working environment and features of the Linux operating system
+## **Objective:**
+1. Familiarization with different types of hypervisors and virtualization when working with operating systems.
+2. Introduction to the main types of modern OSs and a brief overview of their capabilities.
+## 1. Preparation tasks
+### 1.1. Glossary of basic English terms
+- **Virtual Machine (VM)** - Software emulation of a physical computer that executes programs like a real machine.<br>
+- **Hypervisor** - Software that creates and runs virtual machines.<br>
+- **Host OS** - The operating system of the physical computer on which the hypervisor (Type 2) runs.<br>
+- **Guest OS** - The operating system installed inside the virtual machine.<br>
+- **Kernel** - The core of the operating system, the central controller of everything that happens on the computer.<br>
+- **Distribution (Distro)** - A set that includes the Linux kernel, GNU system utilities, and application software.<br>
+- **CLI (Command Line Interface)** - A text interface where the user types commands from the keyboard.<br>
+- **Open Source** - Software with open source code that can be freely viewed and modified. <br>
+### 1.2. Characteristics of hypervisors. Their types. Main components and capabilities of XEN hypervisors.
+- **Hypervisor** — is software that allows running multiple OSs on one physical computer simultaneously<br>
 
-#### **Тип 1 ("Bare-Metal" або "Залізний"):**
-- Встановлюється безпосередньо на апаратне забезпечення сервера без основної операційної системи.
-- **Переваги:** Висока продуктивність, стабільність.
-- **Приклади:** Xen, VMware ESXi, Microsoft Hyper-V (у режимi сервера).
-#### **Тип 2 ("Hosted" або "Хостовий"):**
-- Встановлюється як звичайна програма на існуючу операційну систему (Windows, Linux, macOS).
-- **Переваги:** Простота налаштування, підходить для домашнього використання.
-- **Приклади:** Oracle VirtualBox, VMware Workstation.
-<br> **Xen** — це гіпервізор 1-го типу (Bare-Metal), який є проектом з відкритим вихідним кодом (Open Source) і зараз розвивається під егідою Linux Foundation.
-#### **Основні компоненти та особливості:**
-- **Паравіртуалізація (Paravirtualization):** Це головна "фішка" Xen. Вона дозволяє гостьовій ОС взаємодіяти з гіпервізором через спеціальні API, що значно підвищує швидкість роботи, наближаючи її до реального "заліза".
-- **Архітектура:**
-<br><br>1. **Dom0 (Domain 0):** Це спеціальна привілейована віртуальна машина, яка запускається першою. Вона має прямий доступ до апаратного забезпечення і керує іншими віртуальними машинами.
-<br><br>2. **DomU (User Domains):** Це звичайні гостьові віртуальні машини, де працюють ваші додатки.<br><br>
-- **Безпека та ізоляція:** Завдяки своїй архітектурі Xen забезпечує дуже надійну ізоляцію ресурсів, тому його часто використовують у хмарних сервісах (наприклад, ранні версії Amazon AWS базувалися на Xen).
-- **Жива міграція (Live Migration):** Дозволяє переміщувати працюючу віртуальну машину з одного фізичного сервера на інший без вимкнення та переривання роботи сервісів.
+#### **Type 1 ("Bare-Metal"):**
+- Installed directly on the server hardware without a main operating system.
+- **Advantages:** High performance, stability.
+- **Examples:** Xen, VMware ESXi, Microsoft Hyper-V (in server mode).
+#### **Type 2 ("Hosted"):**
+- Installed as a regular program on an existing operating system (Windows, Linux, macOS).
+- **Advantages:** Easy to configure, suitable for home use.
+- **Examples:** Oracle VirtualBox, VMware Workstation.
+<br> **Xen** — is a Type 1 hypervisor (Bare-Metal), which is an Open Source project and is currently developed under the Linux Foundation.
+#### **Main components and features:**
+- **Paravirtualization:** This is the main "feature" of Xen. It allows the guest OS to interact with the hypervisor through special APIs, which significantly increases performance, bringing it closer to real hardware speed.
+- **Architecture:**
+<br><br>1. **Dom0 (Domain 0):** This is a special privileged virtual machine that starts first. It has direct access to hardware and manages other virtual machines.
+<br><br>2. **DomU (User Domains):** These are regular guest virtual machines where your applications run.<br><br>
+- **Security and isolation:** Thanks to its architecture, Xen ensures very reliable resource isolation, which is why it is often used in cloud services (for example, early versions of Amazon AWS were based on Xen).
+- **Live Migration:** Allows moving a running virtual machine from one physical server to another without shutting it down or interrupting services.
 
-## 2. Хід роботи
+## 2. Course of work
 
-### 2.1. Етапи розгортання ОС на базі VirtualBox
-1.  **Підготовка:** Завантаження інсталяційного образу операційної системи (файл `.iso`) та встановлення ПЗ Oracle VM VirtualBox.
-2.  **Створення віртуальної машини (ВМ):**
-    * Натискання кнопки "Створити" (New).
-    * Вказівка імені ВМ, типу (напр., Linux) та версії (напр., Ubuntu 64-bit).
-    * Виділення обсягу оперативної пам'яті (RAM).
-    * Створення віртуального жорсткого диска (VDI, фіксований або динамічний розмір).
-3.  **Налаштування носія:** У налаштуваннях ВМ (розділ "Носії" / Storage) монтуємо завантажений ISO-образ у віртуальний CD/DVD привід.
-4.  **Запуск та інсталяція:** Запуск віртуальної машини, після чого розпочинається стандартний процес встановлення Guest OS (вибір мови, розмітка диска, створення користувача).
-5.  **Встановлення доповнень:** Після інсталяції ОС рекомендовано встановити "Guest Additions" для кращої інтеграції екрана та спільних папок.
+### 2.1. Stages of OS deployment based on VirtualBox
+1.  **Preparation:** Downloading the operating system installation image (`.iso` file) and installing Oracle VM VirtualBox software.
+2.  **Creating a Virtual Machine (VM):**
+    * Clicking the "New" button.
+    * Specifying the VM name, type (e.g., Linux), and version (e.g., Ubuntu 64-bit).
+    * Allocating Random Access Memory (RAM).
+    * Creating a virtual hard disk (VDI, fixed or dynamic size).
+3.  **Media configuration:** In the VM settings ("Storage" section), we mount the downloaded ISO image into the virtual CD/DVD drive.
+4.  **Launch and installation:** Starting the virtual machine, after which the standard Guest OS installation process begins (language selection, disk partitioning, user creation).
+5.  **Installing additions:** After installing the OS, it is recommended to install "Guest Additions" for better screen integration and shared folders.
 
-### 2.2. Апаратні обмеження при встановленні 32- та 64-бітних ОС
-* **Архітектура процесора:** На 32-бітний процесор (x86) можна встановити лише 32-бітну гостьову ОС. На 64-бітний процесор (x64) можна встановлювати як 32-бітні, так і 64-бітні системи.
-* **Віртуалізація (VT-x/AMD-V):** Для запуску 64-бітних гостьових систем у VirtualBox обов'язковою умовою є підтримка та **активація** технологій апаратної віртуалізації (Intel VT-x або AMD-V) у BIOS/UEFI фізичного комп'ютера (хоста).
-* **Оперативна пам'ять:** 64-бітні системи споживають більше пам'яті, тому хост-машина повинна мати достатній запас RAM.
+### 2.2. Hardware limitations when installing 32- and 64-bit OSs
+* **Processor Architecture:** You can only install a 32-bit guest OS on a 32-bit processor (x86). On a 64-bit processor (x64), you can install both 32-bit and 64-bit systems.
+* **Virtualization (VT-x/AMD-V):** To run 64-bit guest systems in VirtualBox, it is mandatory to support and **enable** hardware virtualization technologies (Intel VT-x or AMD-V) in the BIOS/UEFI of the physical computer (host).
+* **RAM:** 64-bit systems consume more memory, so the host machine must have a sufficient RAM reserve.
 
-### 2.3. Основні етапи встановлення OS Linux в текстовому режимі
-1.  **Завантаження інсталятора:** Вибір варіанту "Install" або "Install Ubuntu Server" у меню завантажувача.
-2.  **Локалізація:** Вибір мови інтерфейсу, країни та розкладки клавіатури.
-3.  **Налаштування мережі:** Присвоєння імені хоста (hostname) та налаштування мережевого інтерфейсу (DHCP або статика).
-4.  **Налаштування користувачів:** Введення повного імені, логіна та пароля для основного користувача (або root).
-5.  **Розмітка диска (Partitioning):** Створення розділів (автоматично весь диск або вручну: `/`, `/boot`, `/home`, `swap`).
-6.  **Встановлення базової системи:** Копіювання файлів ядра та основних утиліт.
-7.  **Вибір програмного забезпечення:** (Наприклад, OpenSSH server, Basic Ubuntu server), без вибору графічного оточення.
-8.  **Встановлення завантажувача:** Інсталяція GRUB у головний завантажувальний запис (MBR) або EFI розділ.
-9.  **Завершення:** Перезавантаження системи та вхід у консоль.
+### 2.3. Main stages of installing OS Linux in text mode
+1.  **Loading the installer:** Selecting "Install" or "Install Ubuntu Server" in the bootloader menu.
+2.  **Localization:** Selecting the interface language, country, and keyboard layout.
+3.  **Network configuration:** Assigning a hostname and configuring the network interface (DHCP or static).
+4.  **User configuration:** Entering the full name, login, and password for the main user (or root).
+5.  **Disk Partitioning:** Creating partitions (automatically use the whole disk or manually: `/`, `/boot`, `/home`, `swap`).
+6.  **Installing the base system:** Copying kernel files and main utilities.
+7.  **Software selection:** (For example, OpenSSH server, Basic Ubuntu server), without selecting a graphical environment.
+8.  **Installing the bootloader:** Installing GRUB into the Master Boot Record (MBR) or EFI partition.
+9.  **Completion:** Rebooting the system and logging into the console.
 
-### 2.4. Встановлення графічних оболонок (Gnome та KDE) в текстовому режимі
-Якщо Linux встановлено без графіки (наприклад, Ubuntu Server), довстановити оточення можна через термінал за допомогою менеджера пакетів (apt).
+### 2.4. Installing graphical shells (Gnome and KDE) in text mode
+If Linux is installed without graphics (for example, Ubuntu Server), you can install the environment via the terminal using the package manager (apt).
 
-1.  Спочатку оновлюємо списки пакетів:
-    ```bash
-    sudo apt update
-    sudo apt upgrade
-    ```
-2.  **Для встановлення Gnome (стандартна для Ubuntu):**
-    ```bash
-    sudo apt install ubuntu-desktop
-    # або мінімальна версія:
-    sudo apt install ubuntu-gnome-desktop
-    ```
-3.  **Для встановлення KDE (Kubuntu):**
-    ```bash
-    sudo apt install kubuntu-desktop
-    # або стандартна версія KDE Plasma:
-    sudo apt install kde-plasma-desktop
-    ```
-*Також можна використати утиліту `tasksel` (команда `sudo tasksel`), де відмітити галочками потрібні середовища.*
+1.  First, update the package lists:
+    ```bash
+    sudo apt update
+    sudo apt upgrade
+    ```
+2.  **To install Gnome (standard for Ubuntu):**
+    ```bash
+    sudo apt install ubuntu-desktop
+    # or the minimal version:
+    sudo apt install ubuntu-gnome-desktop
+    ```
+3.  **To install KDE (Kubuntu):**
+    ```bash
+    sudo apt install kubuntu-desktop
+    # or the standard KDE Plasma version:
+    sudo apt install kde-plasma-desktop
+    ```
+*You can also use the `tasksel` utility (command `sudo tasksel`), where you can check the required environments.*
 
-### 2.5. Характеристика графічних інтерфейсів (Варіант 23: Gnome та JWM)
+### 2.5. Characteristics of graphical interfaces (Variant 23: Gnome and JWM)
 
 #### 1. Gnome (GNU Network Object Model Environment)
-* **Тип:** Повноцінне середовище робочого столу (Desktop Environment).
-* **Загальний опис:** Це одне з найпопулярніших графічних середовищ у світі Linux. Воно використовується за замовчуванням у таких відомих дистрибутивах, як Ubuntu, Fedora та Debian.
-* **Особливості:**
-    * Має сучасний, мінімалістичний дизайн, орієнтований на продуктивність та простоту (відсутність зайвих іконок на робочому столі).
-    * Базується на власних бібліотеках GTK+.
-    * Вимагає наявності 3D-прискорення відеокарти.
-    * **Споживання ресурсів:** Відносно високе (потребує сучасного процесора та достатньо RAM), тому не рекомендоване для старого обладнання.
-
-
+* **Type:** Full-featured Desktop Environment.
+* **General description:** This is one of the most popular graphical environments in the Linux world. It is used by default in well-known distributions such as Ubuntu, Fedora, and Debian.
+* **Features:**
+    * It has a modern, minimalistic design focused on productivity and simplicity (no unnecessary icons on the desktop).
+    * Based on its own GTK+ libraries.
+    * Requires 3D graphics acceleration.
+    * **Resource consumption:** Relatively high (requires a modern processor and sufficient RAM), so it is not recommended for old hardware.
 
 #### 2. JWM (Joe's Window Manager)
-* **Тип:** Менеджер вікон (Window Manager).
-* **Загальний опис:** Це дуже легкий та швидкий менеджер вікон для X Window System, написаний чистою мовою C. Часто використовується в портативних дистрибутивах, наприклад, Puppy Linux.
-* **Особливості:**
-    * Використовує мінімум зовнішніх бібліотек, що забезпечує миттєву роботу навіть на дуже слабких ПК.
-    * Має класичний інтерфейс (панель завдань знизу, системний трей, меню запуску), схожий на старі версії Windows (95/98).
-    * Налаштування (конфігурація) виконується шляхом редагування текстових XML-файлів, а не через графічні меню.
-    * **Споживання ресурсів:** Мінімальне, працює навіть на комп'ютерах з 256 МБ оперативної пам'яті.
-## 3. Контрольні запитання
+* **Type:** Window Manager.
+* **General description:** This is a very lightweight and fast window manager for the X Window System, written in pure C. It is often used in portable distributions, such as Puppy Linux.
+* **Features:**
+    * Uses a minimum of external libraries, ensuring instant operation even on very weak PCs.
+    * Has a classic interface (taskbar at the bottom, system tray, start menu), similar to older versions of Windows (95/98).
+    * Configuration is done by editing text XML files, not through graphical menus.
+    * **Resource consumption:** Minimal, works even on computers with 256 MB of RAM.
+ 
 
-**1. Порівняйте гіпервізори типу 1 та типу 2, яка між ними відмінність та сфера їх застосування?**
-* **Тип 1 (Bare-Metal):** Встановлюється безпосередньо на апаратне забезпечення ("голе залізо") без хостової ОС. Він має прямий доступ до ресурсів.
-    * *Сфера застосування:* Сервери, дата-центри, хмарні обчислення (Enterprise-рівень).
-* **Тип 2 (Hosted):** Працює як звичайна програма поверх основної операційної системи (Windows, Linux, macOS).
-    * *Сфера застосування:* Домашні ПК, навчання, тестування ПЗ, розробка.
-* **Головна відмінність:** Тип 1 продуктивніший та надійніший, Тип 2 — простіший у налаштуванні.
+## 3. Control questions
 
-**2. Розкрийте поняття «GNU GPL», яка його основна концепція?**
-**GNU GPL (General Public License)** — це ліцензія на вільне програмне забезпечення. Її основна концепція — **Copyleft**. Це означає, що будь-яка похідна робота, створена на основі коду під GPL, також повинна поширюватися під цією ж вільною ліцензією. Вона гарантує користувачам 4 свободи: запускати програму, вивчати її код, поширювати копії та публікувати покращення.
+**1. Compare Type 1 and Type 2 hypervisors; what is the difference between them and their scope of application?**
+* **Type 1 (Bare-Metal):** Installed directly on the hardware ("bare metal") without a host OS. It has direct access to resources.
+    * *Scope of application:* Servers, data centers, cloud computing (Enterprise level).
+* **Type 2 (Hosted):** Runs as a regular program on top of the main operating system (Windows, Linux, macOS).
+    * *Scope of application:* Home PCs, education, software testing, development.
+* **Main difference:** Type 1 is more performant and reliable, Type 2 is easier to configure.
 
-**3. В чому суть програмного забезпечення з відкритим кодом?**
-Суть **Open Source** полягає в тому, що вихідний код програми є доступним для перегляду будь-кому. Це забезпечує прозорість (можна перевірити на відсутність "шпигунських" закладок), безпеку (спільнота швидко знаходить і виправляє вразливості) та незалежність від конкретного виробника (Vendor lock-in).
+**2. Explain the concept of "GNU GPL", what is its main concept?**
+**GNU GPL (General Public License)** — is a license for free software. Its main concept is **Copyleft**. This means that any derivative work created based on code under GPL must also be distributed under the same free license. It guarantees users 4 freedoms: to run the program, to study its code, to distribute copies, and to publish improvements.
 
-**4. Що таке дистрибутив? (*)**
-**Дистрибутив Linux** — це готовий до використання комплект програмного забезпечення, що включає: ядро Linux, системні бібліотеки та утиліти GNU, систему керування пакетами, графічне середовище та набір прикладних програм. Оскільки "чистий" Linux — це лише ядро, дистрибутив робить його повноцінною ОС для користувача.
+**3. What is the essence of Open Source software?**
+The essence of **Open Source** is that the source code of the program is available for anyone to view. This ensures transparency (one can check for the absence of "spyware"), security (the community quickly finds and fixes vulnerabilities), and independence from a specific manufacturer (no Vendor lock-in).
 
-**5. Які задачі системного адміністрування можна реалізувати на базі ОС Linux? (*)**
-* Керування обліковими записами користувачів та правами доступу до файлів.
-* Налаштування мережі, маршрутизації та брандмауерів.
-* Керування службами та процесами (systemd).
-* Автоматизація рутинних задач (скрипти Bash, Cron).
-* Розгортання веб-серверів, баз даних та файлових сховищ.
-* Моніторинг продуктивності системи та аналіз логів.
+**4. What is a distribution? (*)**
+A **Linux Distribution** — is a ready-to-use software kit that includes: the Linux kernel, system libraries and GNU utilities, a package management system, a graphical environment, and a set of application programs. Since "pure" Linux is just a kernel, the distribution makes it a full-fledged OS for the user.
 
-**6. Як пов'язані між собою ОС Android та Linux? (*)**
-Android побудований на базі модифікованого **ядра Linux**. Ядро відповідає за керування пам'яттю, процесами та драйверами пристроїв. Проте Android не використовує стандартні бібліотеки GNU (замість glibc використовує Bionic) та має власну віртуальну машину (ART) для запуску додатків, тому звичайні Linux-програми на ньому прямо не запускаються.
+**5. What system administration tasks can be implemented based on Linux OS? (*)**
+* Managing user accounts and file access rights.
+* Configuring networks, routing, and firewalls.
+* Managing services and processes (systemd).
+* Automating routine tasks (Bash scripts, Cron).
+* Deploying web servers, databases, and file storage.
+* Monitoring system performance and analyzing logs.
 
-**7. Основні можливості та сфера використання Embedded Linux? (**)**
-**Embedded Linux** (Вбудований Лінукс) — це версії ОС, оптимізовані для роботи на пристроях з обмеженими ресурсами.
-* *Сфера використання:* Роутери, смарт-ТВ, автомобільні системи (infotainment), промислові контролери, IoT-пристрої, термінали оплати.
-* *Можливості:* Робота в реальному часі (Real-time), висока стабільність, мінімальне споживання енергії та пам'яті, підтримка специфічних архітектур процесорів (ARM, MIPS).
+**6. How are Android OS and Linux related? (*)**
+Android is built on a modified **Linux kernel**. The kernel is responsible for managing memory, processes, and device drivers. However, Android does not use standard GNU libraries (it uses Bionic instead of glibc) and has its own virtual machine (ART) for running applications, so standard Linux programs do not run directly on it.
 
-**8. Яким чином можна змінити типу завантаження Linux: в текстовому режимі (3 рівень) або графічному (рівень 5)? Чим відрізняються режими CLI та GUI? (**)**
-У сучасних системах з `systemd` рівні завантаження (runlevels) замінені на "цілі" (targets):
-* Щоб встановити текстовий режим за замовчуванням (аналог рівня 3):
-    `sudo systemctl set-default multi-user.target`
-* Щоб встановити графічний режим за замовчуванням (аналог рівня 5):
-    `sudo systemctl set-default graphical.target`
+**7. Main capabilities and scope of use of Embedded Linux? (**)**
+**Embedded Linux** — are OS versions optimized for running on devices with limited resources.
+* *Scope of use:* Routers, smart TVs, automotive systems (infotainment), industrial controllers, IoT devices, payment terminals.
+* *Capabilities:* Real-time operation, high stability, minimal energy and memory consumption, support for specific processor architectures (ARM, MIPS).
 
-**Відмінності:**
-* **CLI (Command Line Interface):** Текстовий інтерфейс. Споживає мінімум ресурсів, ідеальний для серверів, дозволяє повну автоматизацію.
-* **GUI (Graphical User Interface):** Графічний інтерфейс (вікна, миша). Зручний для користувача, наочний, але потребує значних ресурсів (RAM, GPU).
+**8. How can you change the Linux boot type: in text mode (level 3) or graphical mode (level 5)? How do CLI and GUI modes differ? (**)**
+In modern systems with `systemd`, runlevels are replaced by "targets":
+* To set text mode by default (analogous to level 3):
+    `sudo systemctl set-default multi-user.target`
+* To set graphical mode by default (analogous to level 5):
+    `sudo systemctl set-default graphical.target`
+
+**Differences:**
+* **CLI (Command Line Interface):** Text interface. Consumes minimum resources, ideal for servers, allows full automation.
+* **GUI (Graphical User Interface):** Graphical interface (windows, mouse). User-friendly, visual, but requires significant resources (RAM, GPU).
+
+## 4. Conclusion
+In the course of this laboratory work, I familiarized myself with the fundamental principles of virtualization and the architecture of the Linux operating system.
+
+While performing the preparation tasks, I studied the classification of virtual environments and analyzed the differences between **Type 1 (Bare-Metal)** and **Type 2 (Hosted)** hypervisors. Within the framework of my variant (No. 23), I examined the features of the **Xen** hypervisor in detail, studying the concept of paravirtualization and the domain separation architecture (Dom0 and DomU), which allows ensuring high performance close to native.
+
+At the practical stage, I mastered the skills of working with the **Oracle VirtualBox** software. I went through the full cycle of operating system deployment: from creating a virtual machine and configuring hardware limitations (support for 32/64-bit architecture, VT-x/AMD-V activation) to installing the Guest Linux OS in text mode.
+
+I also explored the differences in Linux graphical interfaces. According to my variant, I compared the full-featured **Gnome** desktop environment, which is the standard for modern distributions, and the lightweight **JWM** window manager, focused on maximum resource saving. This gave me an understanding of how the choice of shell affects system performance.
+
+Answering the control questions, I consolidated my knowledge about the **Open Source** philosophy and the **GNU GPL** license, and also sorted out the differences between **CLI** (command line) and **GUI** (graphical interface) modes, learning how to switch boot targets via systemd.
+
+The knowledge obtained allows me to effectively deploy test environments, choose optimal virtualization tools for specific tasks, and administer basic Linux OS parameters.
