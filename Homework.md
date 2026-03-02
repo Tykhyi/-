@@ -18,5 +18,5 @@
 
 **2. Мобільна операційна система (Android / One UI)**
 *Сенсорний інтерфейс користувача та інформація про версію ядра:*
-![Інтерфейс Android](android_ui.jpg)
-![Відомості про ядро Android](android_kernel.jpg)
+![Інтерфейс Android](android_ui.png)
+![Відомості про ядро Android](android_kernel.png)
